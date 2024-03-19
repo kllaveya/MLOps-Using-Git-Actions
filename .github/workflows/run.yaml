@@ -24,7 +24,7 @@ jobs:
 
           echo "RF and LR Model Score" > report.md
           
-          cat report.txt
+          cat scores.txt
 
           echo "Confusion Matrix & Feature Importance" > report1.md
           
