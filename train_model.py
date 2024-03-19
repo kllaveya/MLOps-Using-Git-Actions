@@ -79,7 +79,11 @@ def plot_cm(cm, target_name, title="Confusion Matrix", cmap=None, normalize=True
         plt.yticks(tick_marks, target_name)
 
     if normalize:
-        cm = cm.astype('float')/cm.sum(axis=1)[:, np.newaxis]
+        row_sums = cm.sum(axis=1)
+        zero_row_indices = np.where(row_sums == 0)[0]
+        row_sums[zero_row_indices] = 1
+        cm = cm.astype('float') / row_sums[:, np.newaxis]
+        # cm = cm.astype('float')/cm.sum(axis=1)[:, np.newaxis]
     thresh = cm.max()/1.5 if normalize else cm.max()/2
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
         if normalize:
